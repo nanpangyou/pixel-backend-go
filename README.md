@@ -64,3 +64,9 @@ func TestPingRoute(t *testing.T) {
  assert.Equal(t, "pong1pong2", w.Body.String())
 }
 ```
+
+### 使用docker 启动postgresql
+
+```
+docker run -d --name pg-for-pixel-backend -e POSTGRES_USER=pixel -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=pixel_dev -e PGDATA=/var/lib/postgresql/data/pgdata -v pg-go-pixel-backend-data:/var/lib/postgresql/data --network=network1 postgres:14
+```

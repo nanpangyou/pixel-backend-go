@@ -3,13 +3,17 @@ package cmd
 import (
 	"log"
 
+	"github.com/nanpangyou/pixel-backend-go/internal/database"
 	"github.com/nanpangyou/pixel-backend-go/internal/router"
 )
 
 func RunServer() {
+	// defer database.PgClose(database.DB)
 	log.Println("Server started================")
-	r := router.New()
 	log.Println("============Server started")
+	database.PgConnect()
+	database.PgCreateTable()
+	r := router.New()
 	err := r.Run(":8080")
 	if err != nil {
 		log.Fatalln(err)
