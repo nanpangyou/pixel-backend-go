@@ -72,3 +72,10 @@ docker run -d --name pg-for-pixel-backend -p 5432:5432 -e POSTGRES_USER=pixel -e
 
 // 如果需要使用数据库工具，则需要将端口映射出来，-p 5432:5432
 ```
+
+### 使用docker 启动mysql
+
+```
+docker run -d --network=network1 --name mysql-for-pixel-backend -p 3306:3306 -e MYSQL_DATABASE=pixel_dev -e MYSQL_USER=pixel -e MYSQL_PASSWORD=123456 -e MYSQL_ROOT_PASSWORD=123456 -v mysql-go-pixel-backend-data:/var/lib/mysql -d mysql:8 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+```

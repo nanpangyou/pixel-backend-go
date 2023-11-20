@@ -56,7 +56,7 @@ func PgCreateTable() {
 
 }
 
-func PgClose(db *sql.DB) {
+func PgClose() {
 	DB.Close()
 	log.Println("数据库连接关闭")
 }

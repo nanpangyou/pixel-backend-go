@@ -8,9 +8,9 @@ import (
 )
 
 func RunServer() {
-	// defer database.PgClose(database.DB)
 	database.PgConnect()
 	database.PgCreateTable()
+	defer database.PgClose()
 	r := router.New()
 	err := r.Run(":8080")
 	if err != nil {
