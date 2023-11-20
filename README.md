@@ -68,5 +68,7 @@ func TestPingRoute(t *testing.T) {
 ### 使用docker 启动postgresql
 
 ```
-docker run -d --name pg-for-pixel-backend -e POSTGRES_USER=pixel -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=pixel_dev -e PGDATA=/var/lib/postgresql/data/pgdata -v pg-go-pixel-backend-data:/var/lib/postgresql/data --network=network1 postgres:14
+docker run -d --name pg-for-pixel-backend -p 5432:5432 -e POSTGRES_USER=pixel -e POSTGRES_PASSWORD=123456 -e POSTGRES_DB=pixel_dev -e PGDATA=/var/lib/postgresql/data/pgdata -v pg-go-pixel-backend-data:/var/lib/postgresql/data --network=network1 postgres:14
+
+// 如果需要使用数据库工具，则需要将端口映射出来，-p 5432:5432
 ```

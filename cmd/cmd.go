@@ -9,8 +9,6 @@ import (
 
 func RunServer() {
 	// defer database.PgClose(database.DB)
-	log.Println("Server started================")
-	log.Println("============Server started")
 	database.PgConnect()
 	database.PgCreateTable()
 	r := router.New()

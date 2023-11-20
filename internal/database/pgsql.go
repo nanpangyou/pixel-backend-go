@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
+	_ "github.com/lib/pq" // 如果不引入驱动，则无法连接数据库
 )
 
 const (
@@ -20,11 +22,13 @@ func PgConnect() (*sql.DB, error) {
 		host, port, user, password, dbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 	DB = db
 	// 检查数据库连接是否成功
 	if err = DB.Ping(); err != nil {
+		log.Println(err)
 		return nil, err
 	}
 
@@ -36,10 +40,11 @@ func PgConnect() (*sql.DB, error) {
 func PgCreateTable() {
 	// 创建表的 SQL 语句
 	createTableSQL := `
-        CREATE TABLE IF NOT EXISTS user (
+        CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             name VARCHAR(50) NOT NULL,
-            age INT
+            email VARCHAR(100) NOT NULL,
+            password VARCHAR(100) NOT NULL
         );
     `
 	// 执行创建表的 SQL 语句
@@ -47,7 +52,7 @@ func PgCreateTable() {
 	if err != nil {
 		log.Fatal("Failed to create table:", err)
 	}
-	log.Panicln("创建表成功")
+	log.Println("创建表成功")
 
 }
 
