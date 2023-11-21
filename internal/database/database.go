@@ -2,4 +2,5 @@ package database
 
 import "database/sql"
 
-var DB *sql.DB
+var PgDB *sql.DB
+var MySQLDB *sql.DB

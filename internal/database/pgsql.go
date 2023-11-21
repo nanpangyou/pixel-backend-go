@@ -9,32 +9,32 @@ import (
 )
 
 const (
-	host     = "pg-for-pixel-backend"
-	port     = 5432
-	user     = "pixel"
-	password = "123456"
-	dbname   = "pixel_dev"
+	pgHost     = "pg-for-pixel-backend"
+	pgPort     = 5432
+	pgUser     = "pixel"
+	pgPassword = "123456"
+	pgDbname   = "pixel_dev"
 )
 
 func PgConnect() (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		pgHost, pgPort, pgUser, pgPassword, pgDbname)
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	DB = db
+	PgDB = db
 	// 检查数据库连接是否成功
-	if err = DB.Ping(); err != nil {
+	if err = PgDB.Ping(); err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
 	log.Println("数据库连接成功")
 
-	return DB, nil
+	return PgDB, nil
 }
 
 func PgCreateTable() {
@@ -48,7 +48,7 @@ func PgCreateTable() {
         );
     `
 	// 执行创建表的 SQL 语句
-	_, err := DB.Exec(createTableSQL)
+	_, err := PgDB.Exec(createTableSQL)
 	if err != nil {
 		log.Fatal("Failed to create table:", err)
 	}
@@ -57,6 +57,6 @@ func PgCreateTable() {
 }
 
 func PgClose() {
-	DB.Close()
+	PgDB.Close()
 	log.Println("数据库连接关闭")
 }

@@ -11,6 +11,9 @@ func RunServer() {
 	database.PgConnect()
 	database.PgCreateTable()
 	defer database.PgClose()
+	database.MySQLConnect()
+	database.MySQLCreatTable()
+	defer database.MySQLClose()
 	r := router.New()
 	err := r.Run(":8080")
 	if err != nil {
