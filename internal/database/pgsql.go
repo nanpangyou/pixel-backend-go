@@ -56,6 +56,21 @@ func PgCreateTable() {
 
 }
 
+func PgMigrate() {
+	// 修改表的 SQL 语句
+	migrateTableSQL := `
+		ALTER TABLE users
+		ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+	`
+	// 执行创建表的 SQL 语句
+	_, err := PgDB.Exec(migrateTableSQL)
+
+	if err != nil {
+		log.Fatal("Failed to create table:", err)
+	}
+	log.Println("修改表成功")
+}
+
 func PgClose() {
 	PgDB.Close()
 	log.Println("数据库连接关闭")
